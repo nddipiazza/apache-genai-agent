@@ -276,6 +276,9 @@ Agent Actions:
 
 ## Technical Implementation Notes
 
+### Format
+When building the knowledge graph, never reference an absolute path on the local filesystem. Always use relative paths from the root of the project.
+
 ### Tools and Libraries to Consider
 
 - **Code Parsing**: Tree-sitter, Language Server Protocol
