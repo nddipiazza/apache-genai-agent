@@ -373,7 +373,7 @@ All dependencies are Apache 2.0 compatible:
 
 ## Related Documentation
 
-- [Internal Dependencies](./internal.md)
+- [Internal Dependencies](internal.md)
 - [Version Matrix](./version-matrix.md)
 - [Build Configuration](../configuration/build.md)
 

@@ -338,6 +338,6 @@ mvn clean install -am -pl :tika-server-standard
 
 ## Related Documentation
 
-- [External Dependencies](./external.md)
+- [External Dependencies](external.md)
 - [Build Configuration](../configuration/build.md)
 - [Module Architecture](../architecture/overview.md)

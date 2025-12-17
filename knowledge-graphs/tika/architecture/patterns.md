@@ -191,6 +191,6 @@ Combines multiple patterns:
 
 ## Related Documentation
 
-- [Architecture Overview](./overview.md)
+- [Architecture Overview](overview.md)
 - [Core API](../components/tika-core/api.md)
 - [Parser Implementation Guide](../components/tika-parsers/overview.md)

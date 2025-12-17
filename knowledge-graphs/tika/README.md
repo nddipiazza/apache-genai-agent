@@ -76,22 +76,22 @@ Tika follows a modular, plugin-based architecture:
 
 ## Core Modules
 
-- **[tika-core](./components/tika-core/overview.md)**: Core APIs and interfaces
-- **[tika-parsers](./components/tika-parsers/overview.md)**: Parser implementations
+- **[tika-core](components/tika-core/overview.md)**: Core APIs and interfaces
+- **[tika-parsers](components/tika-parsers/overview.md)**: Parser implementations
 - **[tika-detectors](./components/tika-detectors/overview.md)**: File type detection
-- **[tika-server](./components/tika-server/overview.md)**: REST API server
+- **[tika-server](components/tika-server/overview.md)**: REST API server
 - **[tika-app](./components/tika-app/overview.md)**: Standalone application
-- **[tika-pipes](./components/tika-pipes/overview.md)**: Async processing pipelines
-- **[tika-grpc](./components/tika-grpc/overview.md)**: gRPC API server
+- **[tika-pipes](components/tika-pipes/overview.md)**: Async processing pipelines
+- **[tika-grpc](components/tika-grpc/overview.md)**: gRPC API server
 
 ## Documentation Structure
 
-- **[Architecture](./architecture/overview.md)**: Design patterns and architectural decisions
+- **[Architecture](architecture/overview.md)**: Design patterns and architectural decisions
 - **[Components](./components/)**: Detailed documentation for each module
 - **[APIs](./apis/)**: Public APIs and integration points
 - **[Dependencies](./dependencies/)**: Internal and external dependencies
 - **[Configuration](./configuration/)**: Configuration options and settings
-- **[Changelog](./changelog/updates.md)**: Knowledge graph update history
+- **[Changelog](changelog/updates.md)**: Knowledge graph update history
 
 ## Quick Links
 
@@ -109,8 +109,8 @@ Tika follows a modular, plugin-based architecture:
 ## Getting Started
 
 For developers new to Tika:
-1. Read [Architecture Overview](./architecture/overview.md)
-2. Understand [Core Concepts](./architecture/patterns.md)
+1. Read [Architecture Overview](architecture/overview.md)
+2. Understand [Core Concepts](architecture/patterns.md)
 3. Explore [Component Details](./components/)
 4. Review [API Documentation](./apis/)
 

@@ -157,7 +157,7 @@ tika-eval ──────────► (independent evaluation tools)
 
 ## Related Documentation
 
-- [Design Patterns](./patterns.md)
+- [Design Patterns](patterns.md)
 - [Core Components](../components/tika-core/overview.md)
 - [Parser Architecture](../components/tika-parsers/overview.md)
 - [Server Architecture](../components/tika-server/overview.md)
