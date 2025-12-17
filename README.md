@@ -213,7 +213,7 @@ The knowledge graph serves as a living documentation system that describes your 
 
 **What happens:**
 1. 📂 The agent analyzes your application codebase at `/home/youruser/source/tika`
-2. 🏗️ Creates a new knowledge graph repository at `/home/youruser/source/tika-knowledge-graph`
+2. 🏗️ Creates a `knowledge-graph/` folder in the root of the repository
 3. 📝 Generates comprehensive documentation including:
    - Architecture overview
    - Component relationships
@@ -221,19 +221,22 @@ The knowledge graph serves as a living documentation system that describes your 
    - Data models
    - Dependencies
    - Configuration details
-4. 💬 Prompts you to create a Git repository
-5. 🚀 Pushes the initial knowledge graph to the repository
+4. 💾 Files are ready to be committed to the same Git repository
 
 **Output Structure:**
 ```
-tika-knowledge-graph/
-├── README.md
-├── architecture/
-├── components/
-├── apis/
-├── data/
-├── dependencies/
-└── configuration/
+/home/youruser/source/tika/
+├── src/
+├── pom.xml
+├── knowledge-graph/          ← Created here
+│   ├── README.md
+│   ├── architecture/
+│   ├── components/
+│   ├── apis/
+│   ├── data/
+│   ├── dependencies/
+│   └── configuration/
+└── ... (other project files)
 ```
 
 ---
