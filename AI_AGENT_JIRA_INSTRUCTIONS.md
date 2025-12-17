@@ -10,6 +10,20 @@
 
 3. **Apache JIRA Server**: `https://issues.apache.org/jira`
 
+## remember jira descriptions follow a special format
+
+JIRA description with proper JIRA markup formatting:
+
+```
+     - h2. for headings
+     - h3. for subheadings  
+     - *bold* for emphasis
+     - # for numbered lists
+     - * for bullet points
+```
+
+Don't use Markdown in jira tickets.
+
 ## Reading a JIRA Ticket
 
 Use Python with the jira package to read ticket information:

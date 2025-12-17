@@ -10,6 +10,12 @@ Each software project has a "knowledge graph" which is a hierarchical set of `.m
 
 The agent must be able to analyze an application from scratch and populate the initial knowledge graph structure.
 
+There is a convention that the knowledge graph is stored along-side the git project in your local as `{absPath}-knowledge-graph`.
+
+So `/home/yourname/source/tika` would have a knowledge-graph folder `/home/yourname/source/tika-knowledge-graph`
+
+This is knowledge graph is a git project so must be initialized as a git repo with a "main" branch when done.
+
 #### Steps for Initial Setup:
 
 1. **Project Discovery**
