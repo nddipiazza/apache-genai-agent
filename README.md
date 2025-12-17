@@ -286,15 +286,24 @@ Once tickets are created, the agent can implement the changes.
 6. 🏃 **Run tests** - Ensure all tests pass
 7. 📝 **Update documentation** - Inline comments and README updates
 8. 🔄 **Create PR** - Against the main application repository
-9. 📊 **Update knowledge graph** - Create PR for knowledge graph updates
-10. 🎫 **Update Jira** - Add comments and transition status
+9. 👁️ **Request code review** - Add detailed review information to the PR
+10. 📊 **Update knowledge graph** - Create PR for knowledge graph updates
+11. 🎫 **Update Jira** - Add comments and transition status
 
 **Automated Steps:**
 - ✅ Code generation
 - ✅ Test creation and execution
 - ✅ PR creation with proper description
+- ✅ Code review request with review focus areas
 - ✅ Knowledge graph synchronization
 - ✅ Jira ticket updates
+
+**Code Review Information Included:**
+- 🎯 **Review Focus Areas** - Specific items reviewers should pay attention to
+- 📁 **Critical Files** - Key files that need careful review
+- 🧪 **Testing Instructions** - How to test the changes locally
+- ✅ **Review Checklist** - Standard items to verify before approval
+- ⚠️ **Potential Concerns** - Performance, breaking changes, etc.
 
 ---
 

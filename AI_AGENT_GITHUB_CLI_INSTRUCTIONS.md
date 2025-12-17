@@ -101,6 +101,104 @@ gh pr review 123 --approve
 gh pr review 123 --request-changes --body "Please fix..."
 gh pr review 123 --comment --body "Looks good!"
 
+# Add a comment to a PR (useful for adding review information)
+gh pr comment <number> --body "Comment text"
+
+# Edit PR details (useful for adding review information to description)
+gh pr edit <number> --body "Updated description with review info"
+```
+
+#### **Best Practice: Adding Code Review Information to PRs**
+
+When creating a PR, always include comprehensive review information to help reviewers:
+
+```bash
+# Create PR with detailed review information
+gh pr create \
+  --title "PROJ-123: Add user authentication" \
+  --body "## Summary
+Implements JWT-based authentication for the user service.
+
+## Changes
+- Added AuthenticationService with JWT token generation
+- Implemented login and logout endpoints
+- Added role-based access control middleware
+- Created comprehensive test suite
+
+## Review Focus Areas
+Please pay special attention to:
+- [ ] **Security**: Token generation and validation logic in AuthenticationService.java
+- [ ] **Error handling**: Exception handling in login/logout flows
+- [ ] **Test coverage**: Edge cases for expired tokens and invalid credentials
+- [ ] **Performance**: Token caching mechanism
+- [ ] **Breaking changes**: None expected, all changes are additive
+
+## Critical Files to Review
+- \`src/main/java/com/example/auth/AuthenticationService.java\` - Core authentication logic
+- \`src/main/java/com/example/auth/JWTTokenProvider.java\` - Token generation/validation
+- \`src/test/java/com/example/auth/AuthenticationServiceTest.java\` - Test coverage
+
+## Testing Instructions
+\`\`\`bash
+# Run all tests
+mvn clean test
+
+# Test authentication flow specifically
+mvn test -Dtest=AuthenticationServiceTest
+
+# Manual testing
+curl -X POST http://localhost:8080/api/auth/login -d '{\"username\":\"test\",\"password\":\"pass\"}'
+\`\`\`
+
+## Review Checklist
+- [ ] Code follows project style guidelines
+- [ ] All tests pass
+- [ ] No security vulnerabilities introduced
+- [ ] Documentation is updated
+- [ ] No unnecessary dependencies added
+
+## Related Issues
+- Closes PROJ-123
+- Related to PROJ-100 (authentication epic)" \
+  --base main \
+  --head feature/PROJ-123-auth
+```
+
+#### **Adding Review Information After PR Creation**
+
+If you need to add review information after the PR is created:
+
+```bash
+# Add a comprehensive review comment
+gh pr comment 456 --body "## 🔍 Code Review Information
+
+### Key Changes
+- Modified payment processing to use transaction locking
+- Added retry logic for failed transactions
+- Updated error handling to be more specific
+
+### Review Focus Areas
+- **Thread Safety**: Please verify the locking mechanism in PaymentService.java (lines 45-67)
+- **Error Handling**: Check the new exception types and error messages
+- **Performance**: The retry logic may add latency - please review
+
+### Critical Files
+1. \`src/main/java/com/example/payment/PaymentService.java\` - Core changes
+2. \`src/main/java/com/example/payment/TransactionLock.java\` - New locking mechanism
+3. \`src/test/java/com/example/payment/PaymentServiceTest.java\` - Concurrency tests
+
+### Testing
+- All existing tests pass
+- Added 5 new test cases for concurrent scenarios
+- Manual testing with 100 concurrent requests: ✅ PASSED
+
+### Potential Concerns
+- ⚠️ The locking mechanism may impact throughput under very high load
+- Consider monitoring transaction latency in production
+
+Please review and let me know if you have any questions!"
+```
+
 # Merge a pull request
 gh pr merge [<number>] [flags]
 gh pr merge 123 --squash
@@ -300,7 +398,115 @@ gh issue list
 gh issue list --repo owner/repo
 ```
 
-### 3. Automation-Friendly Flags
+### 3. Always Add Code Review Information to PRs
+
+**IMPORTANT**: Every PR created by the agent must include comprehensive review information to help reviewers understand what to focus on.
+
+**When creating a PR, you MUST include:**
+
+1. **Summary** - What the PR does
+2. **Changes** - Detailed list of modifications
+3. **Review Focus Areas** - Specific items that need careful review
+4. **Critical Files** - Files that are most important to review
+5. **Testing Instructions** - How to test the changes
+6. **Review Checklist** - Items to verify before approval
+7. **Potential Concerns** - Performance, breaking changes, security issues
+
+**Example workflow for every PR:**
+
+```bash
+# Step 1: Create the PR with comprehensive information
+gh pr create \
+  --title "PROJ-123: Feature description" \
+  --body "$(cat << 'EOF'
+## Summary
+Brief description of what this PR does.
+
+## Changes
+- Change 1
+- Change 2
+- Added tests
+
+## Review Focus Areas
+- [ ] **Security**: Authentication logic changes
+- [ ] **Performance**: Database query optimization
+- [ ] **Breaking Changes**: API contract modifications
+
+## Critical Files
+- \`path/to/critical/file.java\` - Core logic
+- \`path/to/test/file.java\` - Test coverage
+
+## Testing Instructions
+\`\`\`bash
+mvn clean test
+mvn test -Dtest=SpecificTest
+\`\`\`
+
+## Review Checklist
+- [ ] Code follows style guidelines
+- [ ] Tests pass
+- [ ] Documentation updated
+
+## Potential Concerns
+- None expected, all changes are backward compatible
+EOF
+)" \
+  --base main \
+  --head feature/branch
+
+# Step 2: Get the PR number
+PR_NUMBER=$(gh pr list --head feature/branch --json number -q '.[0].number')
+
+# Step 3: Optionally add a follow-up comment with additional context
+gh pr comment $PR_NUMBER --body "## 🔍 Additional Review Notes
+
+Please prioritize reviewing the error handling in the new service class. The retry logic is critical for production reliability.
+
+CC: @team-lead for architectural review"
+```
+
+**Template for code review information:**
+
+```markdown
+## Summary
+[One-line description of the change]
+
+## Changes
+- [Specific change 1]
+- [Specific change 2]
+- [Tests added/modified]
+
+## Review Focus Areas
+Please pay special attention to:
+- [ ] **[Category 1]**: [What to review and why]
+- [ ] **[Category 2]**: [What to review and why]
+- [ ] **[Category 3]**: [What to review and why]
+
+## Critical Files to Review
+- \`path/to/file1\` - [Why this file is critical]
+- \`path/to/file2\` - [Why this file is critical]
+
+## Testing Instructions
+\`\`\`bash
+[Commands to run tests]
+[Manual testing steps if applicable]
+\`\`\`
+
+## Review Checklist
+- [ ] Code follows project style guidelines
+- [ ] All tests pass
+- [ ] Documentation updated
+- [ ] No security vulnerabilities
+- [ ] Performance impact assessed
+
+## Potential Concerns
+- [Any performance concerns]
+- [Any breaking changes]
+- [Any security considerations]
+- Or: None expected
+```
+
+### 4. Automation-Friendly Flags
 
 Use flags that make automation easier:
 

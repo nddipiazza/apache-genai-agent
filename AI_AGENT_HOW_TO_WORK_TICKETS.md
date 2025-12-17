@@ -254,8 +254,107 @@ Brief description of what this PR does.
 - Added new tests for the fix
 - Manually tested with [specific scenario]
 
+## Review Focus Areas
+Please pay special attention to:
+- [ ] **Error handling**: New null checks and exception handling in [specific files]
+- [ ] **Test coverage**: New test cases cover edge cases A, B, and C
+- [ ] **Performance**: Changes to [specific method] may impact performance
+- [ ] **Breaking changes**: None expected, but verify backward compatibility
+- [ ] **Documentation**: Updated JavaDoc for modified public APIs
+
 ## Notes
 Any additional context for reviewers.
+```
+
+### Request Code Review Using GitHub CLI
+
+After creating the PR, automatically request a code review:
+
+```bash
+# Get the PR number (from the output of gh pr create, or query it)
+PR_NUMBER=$(gh pr list --head TIKA-XXXX-description --json number -q '.[0].number')
+
+# Add a review request comment with helpful information
+gh pr comment $PR_NUMBER --body "## 🔍 Code Review Request
+
+This PR addresses JIRA ticket [TIKA-XXXX](https://issues.apache.org/jira/browse/TIKA-XXXX).
+
+### Key Changes
+- Modified \`src/main/java/...\` to fix NPE
+- Added comprehensive tests in \`src/test/java/...\`
+- Updated documentation
+
+### Review Checklist
+- [ ] Code follows project style guidelines
+- [ ] All tests pass (\`mvn clean test\`)
+- [ ] No new compiler warnings
+- [ ] JavaDoc is complete and accurate
+- [ ] Edge cases are properly handled
+- [ ] No unnecessary dependencies added
+
+### Files to Review
+**Critical:**
+- \`src/main/java/org/apache/tika/parser/DocumentParser.java\` - Core fix
+- \`src/test/java/org/apache/tika/parser/DocumentParserTest.java\` - Test coverage
+
+**Supporting:**
+- \`README.md\` - Documentation updates
+
+### Testing Instructions
+\`\`\`bash
+mvn clean install
+mvn test -Dtest=DocumentParserTest
+\`\`\`
+
+Please let me know if you have any questions or need clarification on any changes!"
+
+# Optionally request specific reviewers (if you know the team)
+# gh pr edit $PR_NUMBER --add-reviewer username1,username2
+```
+
+### Alternative: Request Review During PR Creation
+
+You can also add the review information directly when creating the PR:
+
+```bash
+# Create PR with comprehensive review information
+gh pr create \
+  --title "TIKA-XXXX: Brief description of the fix" \
+  --body "## JIRA Ticket
+https://issues.apache.org/jira/browse/TIKA-XXXX
+
+## Summary
+Brief description of what this PR does.
+
+## Changes
+- Specific change 1
+- Specific change 2
+- Added tests for X
+
+## Testing
+- All existing tests pass
+- Added new tests for the fix
+- Manually tested with [specific scenario]
+
+## Review Focus Areas
+Please pay special attention to:
+- **Error handling**: New null checks in DocumentParser.java
+- **Test coverage**: Edge cases for null inputs
+- **Performance**: No performance impact expected
+- **Breaking changes**: None
+
+## Files to Review
+**Critical:**
+- \`src/main/java/org/apache/tika/parser/DocumentParser.java\`
+- \`src/test/java/org/apache/tika/parser/DocumentParserTest.java\`
+
+## Testing Instructions
+\`\`\`bash
+mvn clean install
+mvn test -Dtest=DocumentParserTest
+\`\`\`" \
+  --base main \
+  --head TIKA-XXXX-description
 ```
 
 ## Step 7: Updating the JIRA Ticket
@@ -325,6 +424,7 @@ jira.transition_issue(issue, 'In Progress')
 - [ ] Code is properly documented
 - [ ] Commit messages are clear and reference the JIRA ticket
 - [ ] Pull request created with good description
+- [ ] **Code review information added to PR** (review focus areas, critical files, testing instructions)
 - [ ] JIRA ticket updated with PR link
 - [ ] No unrelated changes included
 
