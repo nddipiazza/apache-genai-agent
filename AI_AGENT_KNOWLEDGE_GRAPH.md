@@ -16,6 +16,8 @@ So `/home/yourname/source/tika` would have a knowledge-graph folder `/home/yourn
 
 This is knowledge graph is a git project so must be initialized as a git repo with a "main" branch when done.
 
+I don't want the agent to create git repos. We should prompt the user to create Git repo and come back with the Git repo url.
+
 #### Steps for Initial Setup:
 
 1. **Project Discovery**
@@ -180,7 +182,7 @@ The agent must be intelligent enough to take user input about stories, bugs, fea
    - Recognize architectural implications
    - Anticipate downstream effects
 
-2. **Decision Making**
+2. **Decision-Making**
    - Determine what needs documentation
    - Decide on appropriate detail level
    - Choose optimal organization structure
