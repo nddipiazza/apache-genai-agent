@@ -523,12 +523,6 @@ This is an evolving system. Contributions and improvements are welcome!
 
 ---
 
-## 📄 License
-
-[Specify your license here]
-
----
-
 ## 🆘 Support
 
 If you encounter issues:
