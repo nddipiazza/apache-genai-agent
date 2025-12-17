@@ -2,8 +2,77 @@
 
 > An intelligent AI agent that manages software development workflows through knowledge graphs, automated issue creation, and code generation.
 
+---
+
+## 🔐 IMPORTANT: Authentication Setup Required
+
+> **⚠️ CRITICAL:** Before using this agent, you MUST set up authentication for Jira using the `pass` password manager.
+
+### Quick Setup
+
+The agent expects your Jira API token to be stored in `pass` at the following location:
+
+```bash
+pass jira/token
+```
+
+**Setup Steps:**
+
+1. **Install `pass` (if not already installed):**
+   ```bash
+   # Ubuntu/Debian
+   sudo apt-get install pass
+   
+   # macOS
+   brew install pass
+   
+   # Fedora/RHEL
+   sudo dnf install pass
+   ```
+
+2. **Initialize `pass` (first time only):**
+   ```bash
+   # Generate a GPG key if you don't have one
+   gpg --full-generate-key
+   
+   # Initialize pass with your GPG key ID
+   pass init your-gpg-key-id
+   ```
+
+3. **Store your Jira API token:**
+   ```bash
+   # This will prompt you to enter your Jira API token
+   pass insert jira/token
+   ```
+
+4. **Verify it works:**
+   ```bash
+   # Should output your token
+   pass jira/token
+   ```
+
+### Getting Your Jira API Token
+
+1. Log in to your Jira instance
+2. Go to **Profile Settings** → **Security** → **API Tokens**
+3. Click **Create API Token**
+4. Give it a name (e.g., "GenAI Agent")
+5. Copy the token and store it using `pass insert jira/token`
+
+### What Happens If Authentication Fails?
+
+If the agent cannot retrieve your Jira token from `pass`:
+- ❌ Jira operations will fail
+- 📋 Error messages will appear in the agent logs
+- 🔍 You'll see errors like: "Command 'pass jira/token' failed"
+
+**Solution:** Follow the setup steps above to configure `pass` with your Jira token.
+
+---
+
 ## 📋 Table of Contents
 
+- [🔐 IMPORTANT: Authentication Setup Required](#-important-authentication-setup-required)
 - [Overview](#overview)
 - [🚨 Loading Context into the Agent](#-loading-context-into-the-agent)
 - [Workflows](#workflows)
@@ -357,19 +426,49 @@ The agent will:
 
 Before using this agent, ensure you have:
 
-- ✅ **GitHub Copilot CLI** - Installed and configured
+### 🔐 Required (Critical)
+
+- ✅ **`pass` Password Manager** - MUST be installed and configured with your Jira token at `pass jira/token`
+  - See [Authentication Setup](#-important-authentication-setup-required) section above
+  - **This is absolutely required for Jira integration to work**
+- ✅ **Jira API Token** - Stored in `pass` as described above
+- ✅ **GitHub Copilot** - Enabled in your IDE (JetBrains, VS Code, etc.)
+
+### ✅ Required (Standard)
+
 - ✅ **GitHub CLI (`gh`)** - For repository and PR operations
-- ✅ **Jira Access** - Configured with API tokens
+  - Install: https://cli.github.com/
+  - Authenticate: `gh auth login`
 - ✅ **Git** - For version control
 - ✅ **Development Environment** - Set up for your application stack
 
-### Authentication Setup
+### Authentication Details
 
-The agent requires authentication for:
-- GitHub (via `gh auth login`)
-- Jira (via API tokens)
+**GitHub Authentication:**
+```bash
+# Authenticate with GitHub
+gh auth login
 
-If authentication fails, you'll see errors in the agent logs and can take action to re-authenticate.
+# Verify authentication
+gh auth status
+```
+
+**Jira Authentication:**
+```bash
+# Your Jira token MUST be stored in pass
+pass jira/token
+
+# If this command fails, go back to the Authentication Setup section
+```
+
+**What Happens If Authentication Fails:**
+
+| Service | Error Location | Solution |
+|---------|---------------|----------|
+| **Jira** | Agent logs will show `pass jira/token` command failed | Follow [Authentication Setup](#-important-authentication-setup-required) |
+| **GitHub** | Agent logs will show `gh` authentication errors | Run `gh auth login` |
+
+**The agent will NOT work without proper authentication setup!**
 
 ---
 

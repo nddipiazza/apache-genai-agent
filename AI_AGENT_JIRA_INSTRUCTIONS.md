@@ -1,14 +1,51 @@
 # AI Agent Instructions for Apache JIRA Integration
 
+## 🔐 CRITICAL: Authentication Requirement
+
+> **⚠️ IMPORTANT:** All JIRA operations require a valid API token stored in the `pass` password manager.
+
+**The token MUST be accessible via:**
+```bash
+pass jira/token
+```
+
+**If this command fails, JIRA integration will NOT work!**
+
+See the main README's [Authentication Setup section](./README.md#-important-authentication-setup-required) for setup instructions.
+
+---
+
 ## Prerequisites
 
-1. **JIRA API Token Storage**: The JIRA API token is stored in `pass` under the key `jira/token`
-   - Retrieve it using: `pass jira/token`
+1. **JIRA API Token Storage** (REQUIRED): 
+   - ✅ The JIRA API token MUST be stored in `pass` under the key `jira/token`
+   - ✅ Retrieve it using: `pass jira/token`
+   - ❌ Without this, all JIRA operations will fail
    
 2. **Python Environment**: Python3 is installed with the `jira` pip package
    - Import using: `from jira import JIRA`
 
 3. **Apache JIRA Server**: `https://issues.apache.org/jira`
+
+## Authentication Code Pattern
+
+**Every JIRA operation MUST start with this authentication pattern:**
+
+```python
+from jira import JIRA
+import subprocess
+
+# Get the JIRA API token from pass
+# This will fail if pass is not configured correctly
+token = subprocess.check_output(['pass', 'jira/token']).decode('utf-8').strip()
+
+# Connect to Apache JIRA
+jira = JIRA(server='https://issues.apache.org/jira', token_auth=token)
+
+# Now you can perform JIRA operations...
+```
+
+---
 
 ## remember jira descriptions follow a special format
 

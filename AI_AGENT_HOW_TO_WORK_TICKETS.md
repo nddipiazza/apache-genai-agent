@@ -2,6 +2,21 @@
 
 This guide provides a step-by-step workflow for AI agents to effectively work on Apache Software Foundation JIRA tickets, from ticket selection through to pull request creation.
 
+## 🔐 IMPORTANT: Authentication Required
+
+> **⚠️ CRITICAL:** Before working on any JIRA tickets, you MUST have your JIRA API token configured in `pass`.
+
+**Required command must work:**
+```bash
+pass jira/token
+```
+
+If this fails, see the main [README Authentication Setup](./README.md#-important-authentication-setup-required) for configuration instructions.
+
+**All code examples in this guide assume the token is available via `pass jira/token`.**
+
+---
+
 ## Overview
 
 The complete workflow for working on Apache JIRA tickets involves:
@@ -14,6 +29,24 @@ The complete workflow for working on Apache JIRA tickets involves:
 7. Updating the JIRA ticket with PR information
 
 ## Step 1: Finding a Ticket to Work On
+
+### Authentication Setup for All JIRA Operations
+
+**Every JIRA operation begins with this authentication pattern:**
+
+```python
+from jira import JIRA
+import subprocess
+
+# REQUIRED: Get the JIRA API token from pass
+# This will fail if pass is not configured!
+token = subprocess.check_output(['pass', 'jira/token']).decode('utf-8').strip()
+
+# Connect to Apache JIRA
+jira = JIRA(server='https://issues.apache.org/jira', token_auth=token)
+
+# Now you can use the 'jira' object for operations
+```
 
 ### Search for Open Tickets
 
