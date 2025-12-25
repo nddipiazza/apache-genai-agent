@@ -103,13 +103,40 @@ This GenAI agent helps development teams automate and streamline their workflow 
 
 > **⚠️ IMPORTANT:** Before you can use the agent effectively, you need to load the necessary context files so the agent understands its capabilities and workflows.
 
-### Step 1: Open Your Editor with GitHub Copilot
+### 🚀 Quick Start: Use the Load Agent Script!
 
-Make sure you have GitHub Copilot enabled in your IDE (JetBrains, VS Code, etc.).
+**The easiest way to get started is with our automated loader script:**
 
-### Step 2: Load the Agent Instructions
+```bash
+./load-agent.sh
+```
 
-The agent needs to read the instruction files in this repository to understand how to perform its tasks. You have two options:
+This script automatically:
+- ✨ Launches GitHub Copilot CLI with pre-loaded instructions
+- 🤖 Coaches the AI into its Apache GenAI Agent personality
+- 📚 References all instruction files for immediate context
+- ⚡ Gets you up and running in seconds!
+
+**What happens:**
+1. The script launches `copilot` in interactive mode
+2. Automatically loads agent identity and capabilities
+3. Points the agent to all instruction files in this directory
+4. Leaves you in an interactive session ready to work
+
+**Example usage:**
+```bash
+# Launch the pre-configured agent
+./load-agent.sh
+
+# Now you're in an interactive Copilot CLI session with the agent ready to:
+> "build the knowledge graph for /home/youruser/source/tika"
+> "work ticket PROJ-101"
+> "create Jira tickets for the authentication feature"
+```
+
+### Alternative: Manual Context Loading
+
+If you prefer to use Copilot in your IDE instead:
 
 **Option A: Load All Context Files at Once**
 
