@@ -1,10 +1,28 @@
-# 🤖 GenAI Development Agent
+# 🤖 Apache GenAI Development Agent
 
-> An intelligent AI agent that manages software development workflows through knowledge graphs, automated issue creation, and code generation.
+> An intelligent AI agent for Apache Software Foundation projects that manages development workflows through knowledge graphs, automated issue creation, and code generation.
 
 ---
 
-## 🔐 IMPORTANT: Authentication Setup Required
+## 🚀 Quick Start
+
+The fastest way to get started is with the loader script:
+
+```bash
+./load-agent.sh
+```
+
+This launches GitHub Copilot CLI pre-configured as the Apache GenAI Development Agent, ready to:
+- 🗺️ Build knowledge graphs
+- 🎫 Work JIRA tickets  
+- 💻 Create pull requests
+- 🔄 Automate workflows
+
+**That's it!** Skip to [Usage Examples](#-usage-examples) to see what you can do.
+
+---
+
+## 🔐 Authentication Setup (Required)
 
 > **⚠️ CRITICAL:** Before using this agent, you MUST set up authentication for Jira using the `pass` password manager.
 
@@ -72,155 +90,134 @@ If the agent cannot retrieve your Jira token from `pass`:
 
 ## 📋 Table of Contents
 
-- [🔐 IMPORTANT: Authentication Setup Required](#-important-authentication-setup-required)
-- [Overview](#overview)
-- [🚨 Loading Context into the Agent](#-loading-context-into-the-agent)
-- [Workflows](#workflows)
+- [🚀 Quick Start](#-quick-start)
+- [🔐 Authentication Setup](#-authentication-setup-required)
+- [🎯 Usage Examples](#-usage-examples)
+- [🔄 Workflows](#-workflows)
   - [Building Knowledge Graphs](#1-building-knowledge-graphs)
   - [Creating Feature Requests](#2-creating-feature-requests--changes)
   - [Creating Bug Reports](#3-creating-bug-reports)
   - [Working Jira Tickets](#4-working-jira-tickets)
   - [Review & Merge](#5-review--merge)
-- [Prerequisites](#prerequisites)
-- [Documentation](#documentation)
-- [Example End-to-End Workflow](#-example-end-to-end-workflow)
+- [📦 Prerequisites](#-prerequisites)
+- [📚 Documentation](#-documentation)
+- [Advanced: Manual Context Loading](#-advanced-manual-context-loading)
 
 ---
 
-## 🎯 Overview
+## 🎯 Usage Examples
 
-This GenAI agent helps development teams automate and streamline their workflow by:
+Once you've launched the agent with `./load-agent.sh`, try these commands:
 
-- 🗺️ **Building and maintaining knowledge graphs** for applications
-- 🎫 **Automating Jira ticket creation** with proper dependencies
-- 🔧 **Generating code changes** based on ticket requirements
-- ✅ **Following definition of done** and best practices
-- 🔄 **Managing the full development lifecycle** from planning to PR
+### Build a Knowledge Graph
+```bash
+> "build the knowledge graph for /home/youruser/source/apache/tika"
+```
+The agent analyzes your codebase and creates comprehensive documentation.
+
+### Work a JIRA Ticket
+```bash
+> "work ticket TIKA-4581"
+```
+The agent reads the ticket, implements changes, writes tests, and creates a PR.
+
+### Create Multiple JIRA Tickets
+```bash
+> "We need to add Docker support with GPG verification for tika-grpc. Create tickets for this feature."
+```
+The agent plans the work and creates properly linked JIRA tickets.
+
+### Check Prerequisites
+```bash
+> "check if I have all prerequisites configured"
+```
+The agent verifies JIRA token, GitHub CLI auth, and Python dependencies.
 
 ---
 
-## 🚨 Loading Context into the Agent
+## 💡 What This Agent Does
 
-> **⚠️ IMPORTANT:** Before you can use the agent effectively, you need to load the necessary context files so the agent understands its capabilities and workflows.
+This GenAI agent helps Apache development teams by:
 
-### 🚀 Quick Start: Use the Load Agent Script!
+- 🗺️ **Building and maintaining knowledge graphs** - Living documentation for your codebase
+- 🎫 **Automating JIRA workflows** - Create, update, and work tickets automatically
+- 🔧 **Generating code changes** - Implements features and fixes based on ticket requirements
+- ✅ **Following best practices** - Apache conventions, definition of done, and testing standards
+- 🔄 **Managing full lifecycle** - From planning to PR to merge
 
-**The easiest way to get started is with our automated loader script:**
+---
+
+## 📖 About load-agent.sh
+
+The `load-agent.sh` script is your entry point to the agent. Here's what it does:
+
+### How It Works
+
+1. **Sets Identity** - Configures Copilot CLI as the Apache GenAI Development Agent
+2. **Loads Instructions** - References all instruction files in this directory
+3. **Starts Interactive Session** - Drops you into a ready-to-use CLI session
+4. **Maintains Context** - Keeps agent personality and capabilities loaded
+
+### What Gets Loaded
+
+The script automatically loads these instruction files:
+- `README.md` - Overview and workflows
+- `AI_AGENT_GITHUB_CLI_INSTRUCTIONS.md` - GitHub operations
+- `AI_AGENT_JIRA_INSTRUCTIONS.md` - JIRA integration  
+- `AI_AGENT_HOW_TO_WORK_TICKETS.md` - Development workflow
+- `AI_AGENT_KNOWLEDGE_GRAPH.md` - Knowledge graph building
+
+### Running the Script
 
 ```bash
+# From the apache-genai-agent directory
+cd /path/to/apache-genai-agent
 ./load-agent.sh
 ```
 
-This script automatically:
-- ✨ Launches GitHub Copilot CLI with pre-loaded instructions
-- 🤖 Coaches the AI into its Apache GenAI Agent personality
-- 📚 References all instruction files for immediate context
-- ⚡ Gets you up and running in seconds!
+**Tip:** You can run this from any directory - it auto-detects its location.
 
-**What happens:**
-1. The script launches `copilot` in interactive mode
-2. Automatically loads agent identity and capabilities
-3. Points the agent to all instruction files in this directory
-4. Leaves you in an interactive session ready to work
+### Why Use load-agent.sh?
 
-**Example usage:**
-```bash
-# Launch the pre-configured agent
-./load-agent.sh
+✅ **Consistent Experience** - Same agent personality every time  
+✅ **No Manual Setup** - No need to remember which files to load  
+✅ **Quick Start** - Go from zero to working in seconds  
+✅ **Pre-configured** - All capabilities immediately available
 
-# Now you're in an interactive Copilot CLI session with the agent ready to:
-> "build the knowledge graph for /home/youruser/source/tika"
-> "work ticket PROJ-101"
-> "create Jira tickets for the authentication feature"
-```
+---
 
-### Alternative: Manual Context Loading
+## 🔄 Advanced: Manual Context Loading
 
-If you prefer to use Copilot in your IDE instead:
+If you prefer to use Copilot in your IDE instead of the CLI:
 
-**Option A: Load All Context Files at Once**
-
-Open all instruction files in your editor or reference them in your chat:
+**In your IDE's Copilot chat, reference instruction files:**
 
 ```bash
-# In your IDE's Copilot chat, mention these files:
-@AI_AGENT_KNOWLEDGE_GRAPH.md
-@AI_AGENT_JIRA_INSTRUCTIONS.md
-@AI_AGENT_HOW_TO_CREATE_TICKETS.md
-@AI_AGENT_HOW_TO_WORK_TICKETS.md
-@AI_AGENT_GITHUB_CLI_INSTRUCTIONS.md
-```
-
-**Option B: Load Context as Needed**
-
-Alternatively, mention the specific instruction file relevant to your task:
-
-```bash
-# For building knowledge graphs:
 @AI_AGENT_KNOWLEDGE_GRAPH.md "build the knowledge graph for /home/youruser/source/tika"
-
-# For creating Jira tickets:
-@AI_AGENT_HOW_TO_CREATE_TICKETS.md "create tickets for the authentication feature"
-
-# For working on tickets:
 @AI_AGENT_HOW_TO_WORK_TICKETS.md "work ticket PROJ-101"
 ```
 
-### Step 3: Provide Application Context
-
-Depending on your task, you may need to provide context about your application:
-
-**For Knowledge Graph Creation:**
-```bash
-# Reference the application directory
-"build the knowledge graph for /home/youruser/source/tika"
-# The agent will scan the directory and analyze the codebase
-```
-
-**For Feature/Bug Work:**
-```bash
-# Reference the knowledge graph repository
-@/home/youruser/source/tika-knowledge-graph "We need to add caching layer"
-# The agent will use existing documentation to plan changes
-```
-
-### Step 4: Reference Existing Knowledge Graphs
-
-Once you have a knowledge graph, always reference it when working on changes:
+**Or open multiple instruction files and ask questions:**
 
 ```bash
-# Include knowledge graph in context
-@tika-knowledge-graph/README.md 
-@tika-knowledge-graph/architecture/overview.md
-"work ticket PROJ-205"
-```
+# Open these files in your IDE:
+- AI_AGENT_GITHUB_CLI_INSTRUCTIONS.md
+- AI_AGENT_JIRA_INSTRUCTIONS.md
+- AI_AGENT_HOW_TO_WORK_TICKETS.md
 
-### Quick Start Example
-
-Here's a complete example of starting a conversation with the agent:
-
-```bash
-# Step 1: Load the knowledge graph instructions
-@AI_AGENT_KNOWLEDGE_GRAPH.md
-
-# Step 2: Ask the agent to build the knowledge graph
-"build the knowledge graph for /home/youruser/source/tika"
-
-# The agent will analyze the codebase and create comprehensive documentation
+# Then ask Copilot:
+"Create a PR for this feature and link it to JIRA-123"
 ```
 
 ### Context Best Practices
 
 ✅ **Do:**
-- Load relevant instruction files before giving commands
-- Reference the knowledge graph when working on tickets
+- Use `load-agent.sh` for dedicated work sessions
+- Reference the knowledge graph when working on tickets  
 - Provide specific paths and ticket numbers
-- Keep knowledge graph documentation up to date
 
 ❌ **Don't:**
-- Expect the agent to remember context between sessions
-- Skip loading instruction files
-- Work on tickets without referencing the knowledge graph
+- Work on tickets without the proper context loaded
 - Forget to update knowledge graph after changes
 
 ---
