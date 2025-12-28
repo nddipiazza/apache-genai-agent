@@ -21,12 +21,13 @@ If this fails, see the main [README Authentication Setup](./README.md#-important
 
 The complete workflow for working on Apache JIRA tickets involves:
 1. Finding and selecting an appropriate ticket
-2. Reading and understanding the ticket requirements
-3. Setting up the development environment
-4. Implementing the fix or feature
-5. Testing the changes
-6. Creating a pull request
-7. Updating the JIRA ticket with PR information
+2. **CRITICAL: Assign ticket to yourself and transition to "In Progress"**
+3. Reading and understanding the ticket requirements
+4. Setting up the development environment
+5. Implementing the fix or feature
+6. Testing the changes
+7. Creating a pull request
+8. Updating the JIRA ticket with PR information and status
 
 ## Step 1: Finding a Ticket to Work On
 
@@ -81,7 +82,46 @@ Look for tickets that are:
 - **Have examples**: Include test cases, error messages, or sample files
 - **Bug fixes or improvements**: Often more straightforward than new features
 
-## Step 2: Reading the Ticket
+## Step 2: Reading the Ticket and Starting Work
+
+### ⚠️ CRITICAL: Assign and Transition Before Implementation
+
+**Before you start coding, you MUST:**
+1. **Assign the ticket to yourself**
+2. **Transition the ticket to "In Progress"**
+
+This prevents duplicate work and signals to others that you're working on it.
+
+```python
+from jira import JIRA
+import subprocess
+
+token = subprocess.check_output(['pass', 'jira/token']).decode('utf-8').strip()
+jira = JIRA(server='https://issues.apache.org/jira', token_auth=token)
+
+# Get the ticket
+issue = jira.issue('TIKA-XXXX')
+
+# STEP 1: Assign to yourself
+# Get your username from the API
+myself = jira.myself()
+jira.assign_issue(issue, myself['name'])
+print(f"Assigned {issue.key} to {myself['displayName']}")
+
+# STEP 2: Transition to "In Progress"
+# First, get available transitions
+transitions = jira.transitions(issue)
+print("Available transitions:")
+for t in transitions:
+    print(f"  {t['id']}: {t['name']}")
+
+# Find and execute the "In Progress" transition
+for t in transitions:
+    if t['name'].lower() == 'in progress':
+        jira.transition_issue(issue, t['id'])
+        print(f"Transitioned {issue.key} to In Progress")
+        break
+```
 
 ### Extract Full Ticket Information
 
@@ -450,16 +490,27 @@ jira.transition_issue(issue, 'In Progress')
 
 ## Checklist Before Submitting
 
+### Before Starting Work
+- [ ] **Ticket assigned to yourself**
+- [ ] **Ticket transitioned to "In Progress"**
 - [ ] Ticket requirements fully understood
+
+### During Implementation
 - [ ] Code changes implemented and follow project standards
 - [ ] Unit tests added/updated
 - [ ] All tests pass locally
 - [ ] Code is properly documented
 - [ ] Commit messages are clear and reference the JIRA ticket
+
+### Before Creating PR
 - [ ] Pull request created with good description
 - [ ] **Code review information added to PR** (review focus areas, critical files, testing instructions)
-- [ ] JIRA ticket updated with PR link
 - [ ] No unrelated changes included
+
+### After Creating PR
+- [ ] JIRA ticket updated with PR link
+- [ ] JIRA ticket status updated appropriately (e.g., "Patch Available", "In Review")
+- [ ] Responded to any review feedback
 
 ## Additional Resources
 
@@ -472,20 +523,24 @@ jira.transition_issue(issue, 'In Progress')
 ```bash
 # 1. Find and select a ticket (using Python/JIRA API)
 
-# 2. Clone and setup
+# 2. ASSIGN AND TRANSITION (using Python/JIRA API)
+# - Assign ticket to yourself
+# - Transition to "In Progress"
+
+# 3. Clone and setup
 git clone https://github.com/apache/tika.git
 cd tika
 git checkout -b TIKA-4579-fix-npe
 
-# 3. Build and verify
+# 4. Build and verify
 mvn clean install
 
-# 4. Make changes (edit files as needed)
+# 5. Make changes (edit files as needed)
 
-# 5. Test
+# 6. Test
 mvn test
 
-# 6. Commit and push
+# 7. Commit and push
 git add .
 git commit -m "TIKA-4579: Fix NPE in document parser
 
